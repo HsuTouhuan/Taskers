@@ -1,0 +1,1510 @@
+<TaskerData sr="" dvi="1" tv="5.8.2">
+	<dmetric>1080.0,1920.0</dmetric>
+	<Profile sr="prof86" ve="2">
+		<cdate>1564367360810</cdate>
+		<clp>true</clp>
+		<edate>1564401944316</edate>
+		<id>86</id>
+		<limit>true</limit>
+		<mid0>36</mid0>
+		<nme>屏幕翻译开关</nme>
+		<Event sr="con0" ve="2">
+			<code>3001</code>
+			<pri>0</pri>
+			<Int sr="arg0" val="1"/>
+			<Int sr="arg1" val="2"/>
+			<Int sr="arg2" val="1"/>
+		</Event>
+	</Profile>
+	<Project sr="proj0" ve="2">
+		<cdate>1536768340487</cdate>
+		<name>屏幕翻译</name>
+		<pids>86</pids>
+		<scenes>ocr</scenes>
+		<tids>71,85,36,46,77</tids>
+		<Kid sr="Kid">
+			<feat0>android.hardware.sensor.accelerometer:y</feat0>
+			<launchID>36</launchID>
+			<pkg>com.transscreen.hsutou</pkg>
+			<vTarg>21</vTarg>
+			<vnme>1.0</vnme>
+			<vnum>6</vnum>
+		</Kid>
+		<Img sr="icon" ve="2">
+			<nme>cust_choose_blue</nme>
+		</Img>
+	</Project>
+	<Scene sr="sceneocr">
+		<cdate>1508323556537</cdate>
+		<edate>1564409006459</edate>
+		<heightLand>1080</heightLand>
+		<heightPort>1920</heightPort>
+		<nme>ocr</nme>
+		<widthLand>1920</widthLand>
+		<widthPort>1080</widthPort>
+		<ImageElement sr="elements0" ve="2">
+			<flags>4</flags>
+			<geom>0,0,1080,1920,0,0,1920,1080</geom>
+			<Str sr="arg0" ve="3">bg</Str>
+			<Img sr="arg1" ve="2"/>
+			<Int sr="arg2" val="255"/>
+			<RectElement sr="background">
+				<flags>4</flags>
+				<geom>-1,-1,-1,-1,-1,-1,-1,-1</geom>
+				<Str sr="arg0" ve="3"/>
+				<Int sr="arg1" val="0"/>
+				<Str sr="arg2" ve="3"/>
+				<Str sr="arg3" ve="3"/>
+				<Int sr="arg4" val="0"/>
+				<Str sr="arg5" ve="3">#FF000000</Str>
+				<Int sr="arg6" val="0"/>
+				<Int sr="arg7" val="0"/>
+			</RectElement>
+		</ImageElement>
+		<WebElement sr="elements1" ve="2">
+			<flags>4</flags>
+			<geom>0,0,1080,1920,0,0,1920,1080</geom>
+			<pageloadedTask>71</pageloadedTask>
+			<Str sr="arg0" ve="3">browser</Str>
+			<Int sr="arg1" val="2"/>
+			<Str sr="arg2" ve="3">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;style type="text/css"&gt;
+*{margin:0;padding:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box}
+html{overflow:hidden;background:transparent}
+body{background:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.rect{position:absolute;border:1px dashed #2196F3;background:rgba(0,255,255,.1);width:0;height:0;font-size:0}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script&gt;
+var D=document,BODY=D.body,rect=null;
+var region=function(){
+  var x=0,y=0,w=0,h=0;
+  switch(arguments.length){
+   case 1:
+    var r=region();
+    var m=arguments[0];
+    w=m.offsetWidth;
+    h=m.offsetHeight;
+    if(m.getBoundingClientRect){
+     x=m.getBoundingClientRect().left + r.x - D.documentElement.clientLeft;
+     y=m.getBoundingClientRect().top + r.y - D.documentElement.clientTop;
+    }else for(;m;x+=m.offsetLeft,y+=m.offsetTop,m=m.offsetParent);
+    break;
+   default:
+    x=Math.max(D.documentElement.scrollLeft,BODY.scrollLeft);
+    y=Math.max(D.documentElement.scrollTop,BODY.scrollTop);
+    w=D.documentElement.clientWidth;
+    h=D.documentElement.clientHeight;
+  }
+  return {x:x,y:y,w:w,h:h};
+};
+var setClass=function(o,s){try{o.className=s;}catch(e){o.setAttribute('class',s);}};
+var addStyle=function(o,s){var st=o.style.cssText;if(';'!=st.substr(st.length-1)) st+=';';st+=s;o.style.cssText=st;};
+function onSelectStart(px,py){
+ addStyle(rect,'left:'+px+'px;top:'+py+'px');
+}
+function onSelectEnd(){
+ var t = region();
+ var r = region(rect);
+ var xl = Math.ceil(r.x/t.w*100);
+ var yt = Math.ceil(r.y/t.h*100);
+ var xr = Math.ceil((t.w-r.x-r.w)/t.w*100);
+ var yb = Math.ceil((t.h-r.y-r.h)/t.h*100);
+ var rs = [xl,xr,yt,yb].join(",");
+ setGlobal("OCRRECT",rs);
+ elemVisibility( "ocr","button_bg",true,0);
+ elemVisibility( "ocr","button",true,0);
+}
+function initEvent(){
+ D.onmousedown = function(e){
+  var r = region();
+  var px = r.x+e.clientX,py = r.y+e.clientY;
+  onSelectStart(px,py);
+  D.onmousemove = function(ev){
+   var ex = r.x+ev.clientX,ey = r.y+ev.clientY;
+   addStyle(rect,'left:'+Math.min(ex,px)+'px;top:'+Math.min(ey,py)+'px;width:'+Math.abs(px-ex)+'px;height:'+Math.abs(py-ey)+'px');
+  }
+ };
+ D.ontouchstart = function(e){
+  e.preventDefault();
+  var ts = e.touches[0];
+  var px = ts.pageX,py = ts.pageY;
+  onSelectStart(px,py);
+  D.ontouchmove = function(ev){
+   ev.preventDefault();
+   var tm = ev.touches[0];
+   var ex = tm.pageX,ey = tm.pageY;
+   addStyle(rect,'left:'+Math.min(ex,px)+'px;top:'+Math.min(ey,py)+'px;width:'+Math.abs(px-ex)+'px;height:'+Math.abs(py-ey)+'px');
+  }
+ };
+ D.onmouseup = D.ontouchcancel = D.ontouchend = function(){
+  D.ontouchmove = null;
+  D.onmousemove = null;
+  onSelectEnd();
+ };
+}
+function initRect(){
+ var o = D.createElement('div');
+ setClass(o,'rect');
+ addStyle(o,'left:0;top:-99px');
+ BODY.appendChild(o);
+ rect = o;
+}
+function init(){
+ initRect();
+ initEvent();
+}
+init();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</Str>
+			<Int sr="arg3" val="1"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5" val="0"/>
+			<Int sr="arg6" val="0"/>
+			<Int sr="arg7" val="0"/>
+			<RectElement sr="background">
+				<flags>4</flags>
+				<geom>-1,-1,-1,-1,-1,-1,-1,-1</geom>
+				<Str sr="arg0" ve="3"/>
+				<Int sr="arg1" val="0"/>
+				<Str sr="arg2" ve="3">#33000000</Str>
+				<Str sr="arg3" ve="3"/>
+				<Int sr="arg4" val="0"/>
+				<Str sr="arg5" ve="3">#FF000000</Str>
+				<Int sr="arg6" val="0"/>
+				<Int sr="arg7" val="0"/>
+			</RectElement>
+		</WebElement>
+		<RectElement sr="elements2">
+			<flags>4</flags>
+			<geom>290,760,500,260,710,410,500,260</geom>
+			<Str sr="arg0" ve="3">loading_bg</Str>
+			<Int sr="arg1" val="0"/>
+			<Str sr="arg2" ve="3">#BB333333</Str>
+			<Str sr="arg3" ve="3"/>
+			<Int sr="arg4" val="5"/>
+			<Str sr="arg5" ve="3">#ffffffff</Str>
+			<Int sr="arg6" val="20"/>
+			<Int sr="arg7" val="0"/>
+		</RectElement>
+		<OvalElement sr="elements3">
+			<flags>4</flags>
+			<geom>502,1510,160,160,880,700,160,160</geom>
+			<Str sr="arg0" ve="3">button_bg</Str>
+			<Int sr="arg1" val="0"/>
+			<Str sr="arg2" ve="3">#ff2196F3</Str>
+			<Str sr="arg3" ve="3"/>
+			<Int sr="arg4" val="10"/>
+			<Str sr="arg5" ve="3">#eeffffff</Str>
+		</OvalElement>
+		<ImageElement sr="elements4" ve="2">
+			<clickTask>46</clickTask>
+			<flags>4</flags>
+			<geom>502,1510,175,175,890,710,140,140</geom>
+			<Str sr="arg0" ve="3">button</Str>
+			<Img sr="arg1" ve="2">
+				<nme>hd_action_search</nme>
+			</Img>
+			<Int sr="arg2" val="255"/>
+			<RectElement sr="background">
+				<flags>4</flags>
+				<geom>-1,-1,-1,-1,-1,-1,-1,-1</geom>
+				<Str sr="arg0" ve="3"/>
+				<Int sr="arg1" val="0"/>
+				<Str sr="arg2" ve="3"/>
+				<Str sr="arg3" ve="3"/>
+				<Int sr="arg4" val="0"/>
+				<Str sr="arg5" ve="3">#FF000000</Str>
+				<Int sr="arg6" val="0"/>
+				<Int sr="arg7" val="0"/>
+			</RectElement>
+		</ImageElement>
+		<ImageElement sr="elements5" ve="2">
+			<flags>4</flags>
+			<geom>480,780,120,120,900,450,120,120</geom>
+			<Str sr="arg0" ve="3">loading_icon</Str>
+			<Img sr="arg1" ve="2">
+				<nme>hd_device_access_time</nme>
+			</Img>
+			<Int sr="arg2" val="255"/>
+			<RectElement sr="background">
+				<flags>4</flags>
+				<geom>-1,-1,-1,-1,-1,-1,-1,-1</geom>
+				<Str sr="arg0" ve="3"/>
+				<Int sr="arg1" val="0"/>
+				<Str sr="arg2" ve="3"/>
+				<Str sr="arg3" ve="3"/>
+				<Int sr="arg4" val="0"/>
+				<Str sr="arg5" ve="3">#FF000000</Str>
+				<Int sr="arg6" val="0"/>
+				<Int sr="arg7" val="0"/>
+			</RectElement>
+		</ImageElement>
+		<TextElement sr="elements6" ve="3">
+			<flags>4</flags>
+			<geom>340,900,400,100,760,550,400,100</geom>
+			<Str sr="arg0" ve="3">loading_text</Str>
+			<Str sr="arg1" ve="3">识别中，请稍候...</Str>
+			<Int sr="arg2" val="12"/>
+			<Int sr="arg3" val="100"/>
+			<Str sr="arg4" ve="3">#FFFFFFFF</Str>
+			<Str sr="arg5" ve="3"/>
+			<Int sr="arg6" val="0"/>
+			<Int sr="arg7" val="0"/>
+			<Int sr="arg8" val="0"/>
+			<RectElement sr="background">
+				<flags>4</flags>
+				<geom>-1,-1,-1,-1,-1,-1,-1,-1</geom>
+				<Str sr="arg0" ve="3"/>
+				<Int sr="arg1" val="0"/>
+				<Str sr="arg2" ve="3"/>
+				<Str sr="arg3" ve="3"/>
+				<Int sr="arg4" val="0"/>
+				<Str sr="arg5" ve="3">#FF000000</Str>
+				<Int sr="arg6" val="0"/>
+				<Int sr="arg7" val="0"/>
+			</RectElement>
+		</TextElement>
+		<PropertiesElement sr="props">
+			<Int sr="arg0" val="1"/>
+			<Int sr="arg1" val="0"/>
+			<Str sr="arg2" ve="3">#00000000</Str>
+			<Int sr="arg3" val="0"/>
+			<Str sr="arg4" ve="3">ocr</Str>
+			<Str sr="arg5" ve="3"/>
+			<Img sr="arg6" ve="2"/>
+			<Str sr="arg7" ve="3"/>
+		</PropertiesElement>
+	</Scene>
+	<Task sr="task36">
+		<cdate>1508323104231</cdate>
+		<edate>1564393281437</edate>
+		<id>36</id>
+		<nme>ocr</nme>
+		<pri>6</pri>
+		<Action sr="act0" ve="7">
+			<code>512</code>
+			<Int sr="arg0" val="1"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>30</code>
+			<Int sr="arg0" val="504"/>
+			<Int sr="arg1" val="0"/>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act10" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">button</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act11" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">button_bg</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act12" ve="7">
+			<code>47</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Int sr="arg1" val="10"/>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="10"/>
+			<Int sr="arg5" val="0"/>
+			<Int sr="arg6" val="0"/>
+			<Int sr="arg7" val="1"/>
+		</Action>
+		<Action sr="act13" ve="7">
+			<code>188</code>
+			<Img sr="arg0" ve="2">
+				<var>ocr_screen.png</var>
+			</Img>
+			<Int sr="arg1"/>
+			<Int sr="arg2" val="0"/>
+		</Action>
+		<Action sr="act14" ve="7">
+			<code>66</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">bg</Str>
+			<Img sr="arg2" ve="2">
+				<uri>ibuffer:</uri>
+			</Img>
+		</Action>
+		<Action sr="act15" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">bg</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="149"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act2" ve="7">
+			<code>176</code>
+			<Str sr="arg0" ve="3">ocr_screen.png</Str>
+			<Int sr="arg1" val="0"/>
+		</Action>
+		<Action sr="act3" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%OCRRECT</Str>
+			<Str sr="arg1" ve="3">0,0,0,0</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5"/>
+		</Action>
+		<Action sr="act4" ve="7">
+			<code>49</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+		</Action>
+		<Action sr="act5" ve="7">
+			<code>46</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+		</Action>
+		<Action sr="act6" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">loading_bg</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act7" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">loading_icon</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act8" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">loading_text</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act9" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">browser</Str>
+			<Int sr="arg2" val="1"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Img sr="icn" ve="2">
+			<nme>hl_aaa_conv_zoom_in</nme>
+		</Img>
+	</Task>
+	<Task sr="task46">
+		<cdate>1510203445327</cdate>
+		<edate>1510203445327</edate>
+		<id>46</id>
+		<pri>8</pri>
+		<Action sr="act0" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%Numkk</Str>
+			<Str sr="arg1" ve="3">0</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">button</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act10" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">boundary</Str>
+			<Str sr="arg1" ve="3">String</Str>
+			<Str sr="arg2" ve="3">new
+{String} (String)</Str>
+			<Str sr="arg3" ve="3">---------------------------7da34dfbs04c8</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act11" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">contentType</Str>
+			<Str sr="arg1" ve="3">String</Str>
+			<Str sr="arg2" ve="3">new
+{String} (String)</Str>
+			<Str sr="arg3" ve="3">multipart/form-data;boundary=---------------------------7da34dfbs04c8</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act12" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">url</Str>
+			<Str sr="arg1" ve="3">URL</Str>
+			<Str sr="arg2" ve="3">new
+{URL} (String)</Str>
+			<Str sr="arg3" ve="3">http://ocr.shouji.sogou.com/v2/ocr/json</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act13" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">conn</Str>
+			<Str sr="arg1" ve="3">url</Str>
+			<Str sr="arg2" ve="3">openConnection
+{HttpURLConnection} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act14" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">conn</Str>
+			<Str sr="arg2" ve="3">setDoInput
+{} (boolean)</Str>
+			<Str sr="arg3" ve="3">true</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act15" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">conn</Str>
+			<Str sr="arg2" ve="3">setDoOutput
+{} (boolean)</Str>
+			<Str sr="arg3" ve="3">true</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act16" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">conn</Str>
+			<Str sr="arg2" ve="3">setUseCaches
+{} (boolean)</Str>
+			<Str sr="arg3" ve="3">false</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act17" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">conn</Str>
+			<Str sr="arg2" ve="3">setRequestMethod
+{} (String)</Str>
+			<Str sr="arg3" ve="3">POST</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act18" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">conn</Str>
+			<Str sr="arg2" ve="3">setRequestProperty
+{} (String, String)</Str>
+			<Str sr="arg3" ve="3">Charset</Str>
+			<Str sr="arg4" ve="3">utf-8</Str>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act19" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">conn</Str>
+			<Str sr="arg2" ve="3">setRequestProperty
+{} (String, String)</Str>
+			<Str sr="arg3" ve="3">Content-Type</Str>
+			<Str sr="arg4" ve="3">contentType</Str>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act2" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">button_bg</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act20" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">conn</Str>
+			<Str sr="arg2" ve="3">setRequestProperty
+{} (String, String)</Str>
+			<Str sr="arg3" ve="3">Connection</Str>
+			<Str sr="arg4" ve="3">Keep-Alive</Str>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act21" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">out</Str>
+			<Str sr="arg1" ve="3">conn</Str>
+			<Str sr="arg2" ve="3">getOutputStream
+{OutputStream} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act22" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">ds</Str>
+			<Str sr="arg1" ve="3">DataOutputStream</Str>
+			<Str sr="arg2" ve="3">new
+{DataOutputStream} (OutputStream)</Str>
+			<Str sr="arg3" ve="3">out</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act23" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeBytes
+{} (String)</Str>
+			<Str sr="arg3" ve="3">--</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act24" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeBytes
+{} (String)</Str>
+			<Str sr="arg3" ve="3">boundary</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act25" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">13</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act26" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">10</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act27" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeBytes
+{} (String)</Str>
+			<Str sr="arg3" ve="3">Content-Disposition: form-data; name="pic"; filename="ocr_screen_rect.jpg"</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act28" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">13</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act29" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">10</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act3" ve="7">
+			<code>65</code>
+			<on>false</on>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">loading_bg</Str>
+			<Int sr="arg2" val="1"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act30" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeBytes
+{} (String)</Str>
+			<Str sr="arg3" ve="3">Content-Type: image/jpeg</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act31" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">13</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act32" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">10</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act33" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">13</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act34" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">10</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act35" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">len</Str>
+			<Str sr="arg1" ve="3">Integer</Str>
+			<Str sr="arg2" ve="3">parseInt
+{int} (String)</Str>
+			<Str sr="arg3" ve="3">0</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act36" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">buffers</Str>
+			<Str sr="arg1" ve="3">ByteArrayBuffer</Str>
+			<Str sr="arg2" ve="3">new
+{ByteArrayBuffer} (int)</Str>
+			<Str sr="arg3" ve="3">10240</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act37" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">buffer</Str>
+			<Str sr="arg1" ve="3">buffers</Str>
+			<Str sr="arg2" ve="3">buffer
+{byte[]} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act38" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">file</Str>
+			<Str sr="arg1" ve="3">File</Str>
+			<Str sr="arg2" ve="3">new
+{File} (String)</Str>
+			<Str sr="arg3" ve="3">/sdcard/ocr_screen_rect.jpg</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act39" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">fi</Str>
+			<Str sr="arg1" ve="3">FileInputStream</Str>
+			<Str sr="arg2" ve="3">new
+{FileInputStream} (File)</Str>
+			<Str sr="arg3" ve="3">file</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act4" ve="7">
+			<code>65</code>
+			<on>false</on>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">loading_icon</Str>
+			<Int sr="arg2" val="1"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act40" ve="7">
+			<code>664</code>
+			<label>读取图片文件</label>
+			<Str sr="arg0" ve="3">len</Str>
+			<Str sr="arg1" ve="3">fi</Str>
+			<Str sr="arg2" ve="3">read
+{int} (byte[])</Str>
+			<Str sr="arg3" ve="3">buffer</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act41" ve="7">
+			<code>37</code>
+			<ConditionList sr="if">
+				<Condition sr="c0" ve="3">
+					<lhs>len</lhs>
+					<op>7</op>
+					<rhs>-1</rhs>
+				</Condition>
+			</ConditionList>
+		</Action>
+		<Action sr="act42" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">write
+{} (byte[], int, int)</Str>
+			<Str sr="arg3" ve="3">buffer</Str>
+			<Str sr="arg4" ve="3">0</Str>
+			<Str sr="arg5" ve="3">len</Str>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act43" ve="7">
+			<code>135</code>
+			<Int sr="arg0" val="1"/>
+			<Int sr="arg1" val="42"/>
+			<Str sr="arg2" ve="3">读取图片文件</Str>
+		</Action>
+		<Action sr="act44" ve="7">
+			<code>38</code>
+		</Action>
+		<Action sr="act45" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">fi</Str>
+			<Str sr="arg2" ve="3">close
+{} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act46" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">13</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act47" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeByte
+{} (int)</Str>
+			<Str sr="arg3" ve="3">10</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act48" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeBytes
+{} (String)</Str>
+			<Str sr="arg3" ve="3">--</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act49" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeBytes
+{} (String)</Str>
+			<Str sr="arg3" ve="3">boundary</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act5" ve="7">
+			<code>65</code>
+			<on>false</on>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">loading_text</Str>
+			<Int sr="arg2" val="1"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act50" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">writeBytes
+{} (String)</Str>
+			<Str sr="arg3" ve="3">--</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act51" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">flush
+{} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act52" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">ds</Str>
+			<Str sr="arg2" ve="3">close
+{} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act53" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">in</Str>
+			<Str sr="arg1" ve="3">conn</Str>
+			<Str sr="arg2" ve="3">getInputStream
+{InputStream} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act54" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">ins</Str>
+			<Str sr="arg1" ve="3">InputStreamReader</Str>
+			<Str sr="arg2" ve="3">new
+{InputStreamReader} (InputStream)</Str>
+			<Str sr="arg3" ve="3">in</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act55" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">reader</Str>
+			<Str sr="arg1" ve="3">BufferedReader</Str>
+			<Str sr="arg2" ve="3">new
+{BufferedReader} (Reader)</Str>
+			<Str sr="arg3" ve="3">ins</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act56" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3">writer</Str>
+			<Str sr="arg1" ve="3">FileWriter</Str>
+			<Str sr="arg2" ve="3">new
+{FileWriter} (String, boolean)</Str>
+			<Str sr="arg3" ve="3">/sdcard/ocr_result.txt</Str>
+			<Str sr="arg4" ve="3">false</Str>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act57" ve="7">
+			<code>664</code>
+			<label>读取响应结果</label>
+			<Str sr="arg0" ve="3">html</Str>
+			<Str sr="arg1" ve="3">reader</Str>
+			<Str sr="arg2" ve="3">readLine
+{String} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act58" ve="7">
+			<code>37</code>
+			<ConditionList sr="if">
+				<Condition sr="c0" ve="3">
+					<lhs>html</lhs>
+					<op>3</op>
+					<rhs>null</rhs>
+				</Condition>
+			</ConditionList>
+		</Action>
+		<Action sr="act59" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">writer</Str>
+			<Str sr="arg2" ve="3">write
+{} (String)</Str>
+			<Str sr="arg3" ve="3">html</Str>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act6" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">bg</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act60" ve="7">
+			<code>135</code>
+			<Int sr="arg0" val="1"/>
+			<Int sr="arg1" val="59"/>
+			<Str sr="arg2" ve="3">读取响应结果</Str>
+		</Action>
+		<Action sr="act61" ve="7">
+			<code>38</code>
+		</Action>
+		<Action sr="act62" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">writer</Str>
+			<Str sr="arg2" ve="3">flush
+{} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act63" ve="7">
+			<code>664</code>
+			<Str sr="arg0" ve="3"/>
+			<Str sr="arg1" ve="3">writer</Str>
+			<Str sr="arg2" ve="3">close
+{} ()</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Str sr="arg5" ve="3"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Str sr="arg8" ve="3"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act64" ve="7">
+			<code>129</code>
+			<Str sr="arg0" ve="3">var s = readFile("/sdcard/ocr_result.txt");
+var o = eval("("+s+")");
+var r = "";
+if(1==o.success){
+  var l = o.result;
+  for(var i=0,j=l.length;i&lt;j;i++){
+    r += l[i].content.replace("\n","");
+  }
+  setClip(r);
+ // flash("done");
+}else{
+  flash("识别失败！");
+}
+destroyScene("ocr");</Str>
+			<Str sr="arg1" ve="3"/>
+			<Int sr="arg2" val="1"/>
+			<Int sr="arg3" val="10"/>
+		</Action>
+		<Action sr="act65" ve="7">
+			<code>130</code>
+			<Str sr="arg0" ve="3">谷歌翻译API</Str>
+			<Int sr="arg1">
+				<var>%priority</var>
+			</Int>
+			<Str sr="arg2" ve="3">%CLIP</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3">%Trans1</Str>
+			<Int sr="arg5" val="0"/>
+		</Action>
+		<Action sr="act66" ve="7">
+			<code>548</code>
+			<Str sr="arg0" ve="3">%Trans1</Str>
+			<Int sr="arg1" val="0"/>
+		</Action>
+		<Action sr="act67" ve="7">
+			<code>523</code>
+			<Str sr="arg0" ve="3">翻译</Str>
+			<Str sr="arg1" ve="3">%Trans1</Str>
+			<Str sr="arg10" ve="3"/>
+			<Str sr="arg11" ve="3"/>
+			<Img sr="arg2" ve="2">
+				<nme>cust_appshortcut_log</nme>
+			</Img>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5" val="3"/>
+			<Int sr="arg6" val="0"/>
+			<Int sr="arg7"/>
+			<Int sr="arg8"/>
+			<Str sr="arg9" ve="3"/>
+		</Action>
+		<Action sr="act7" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">browser</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act8" ve="7">
+			<code>129</code>
+			<Str sr="arg0" ve="3">var rect = global("OCRRECT");
+var rects = rect.split(",");
+cropImage(parseInt(rects[0],10),parseInt(rects[1],10),parseInt(rects[2],10),parseInt(rects[3],10));</Str>
+			<Str sr="arg1" ve="3"/>
+			<Int sr="arg2" val="1"/>
+			<Int sr="arg3" val="10"/>
+		</Action>
+		<Action sr="act9" ve="7">
+			<code>187</code>
+			<Str sr="arg0" ve="3">ocr_screen_rect.jpg</Str>
+			<Int sr="arg1" val="80"/>
+			<Int sr="arg2" val="1"/>
+		</Action>
+	</Task>
+	<Task sr="task71">
+		<cdate>1510204650581</cdate>
+		<edate>1510204650581</edate>
+		<id>71</id>
+		<pri>8</pri>
+		<Action sr="act0" ve="7">
+			<code>66</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">bg</Str>
+			<Img sr="arg2" ve="2">
+				<var>ocr_screen.png</var>
+			</Img>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">browser</Str>
+			<Int sr="arg2" val="1"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act2" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">button</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act3" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">button_bg</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act4" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">loading_bg</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act5" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">loading_icon</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act6" ve="7">
+			<code>65</code>
+			<Str sr="arg0" ve="3">ocr</Str>
+			<Str sr="arg1" ve="3">loading_text</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act7" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%ocr_rect</Str>
+			<Str sr="arg1" ve="3">0,0,0,0</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5"/>
+		</Action>
+	</Task>
+	<Task sr="task77">
+		<cdate>1564368412112</cdate>
+		<edate>1564394324378</edate>
+		<id>77</id>
+		<nme>截屏开关</nme>
+		<pri>100</pri>
+		<Action sr="act0" ve="7">
+			<code>159</code>
+			<Str sr="arg0" ve="3">屏幕翻译开关</Str>
+			<Int sr="arg1" val="2"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>37</code>
+			<ConditionList sr="if">
+				<Condition sr="c0" ve="3">
+					<lhs>%AAP</lhs>
+					<op>0</op>
+					<rhs>1</rhs>
+				</Condition>
+			</ConditionList>
+		</Action>
+		<Action sr="act2" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%AAP</Str>
+			<Str sr="arg1" ve="3">0</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5"/>
+		</Action>
+		<Action sr="act3" ve="7">
+			<code>43</code>
+			<ConditionList sr="if">
+				<Condition sr="c0" ve="3">
+					<lhs>%AAP</lhs>
+					<op>0</op>
+					<rhs>0</rhs>
+				</Condition>
+			</ConditionList>
+		</Action>
+		<Action sr="act4" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%AAP</Str>
+			<Str sr="arg1" ve="3">1</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5"/>
+		</Action>
+		<Action sr="act5" ve="7">
+			<code>38</code>
+		</Action>
+		<Action sr="act6" ve="7">
+			<code>548</code>
+			<Str sr="arg0" ve="3">屏幕翻译开</Str>
+			<Int sr="arg1" val="0"/>
+			<ConditionList sr="if">
+				<Condition sr="c0" ve="3">
+					<lhs>%AAP</lhs>
+					<op>0</op>
+					<rhs>1</rhs>
+				</Condition>
+			</ConditionList>
+		</Action>
+		<Action sr="act7" ve="7">
+			<code>548</code>
+			<Str sr="arg0" ve="3">屏幕翻译关</Str>
+			<Int sr="arg1" val="0"/>
+			<ConditionList sr="if">
+				<Condition sr="c0" ve="3">
+					<lhs>%AAP</lhs>
+					<op>0</op>
+					<rhs>0</rhs>
+				</Condition>
+			</ConditionList>
+		</Action>
+		<Img sr="icn" ve="2">
+			<nme>cust_choose_blue</nme>
+		</Img>
+	</Task>
+	<Task sr="task85">
+		<cdate>1564365487700</cdate>
+		<edate>1564401596564</edate>
+		<id>85</id>
+		<nme>谷歌翻译API</nme>
+		<pri>100</pri>
+		<Action sr="act0" ve="7">
+			<code>547</code>
+			<on>false</on>
+			<Str sr="arg0" ve="3">%TransWord</Str>
+			<Str sr="arg1" ve="3">insert</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%TransWord</Str>
+			<Str sr="arg1" ve="3">%par1</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5"/>
+		</Action>
+		<Action sr="act2" ve="7">
+			<code>118</code>
+			<on>false</on>
+			<Str sr="arg0" ve="3">http://translate.google.cn/translate_a/single?client=gtx&amp;sl=en&amp;tl=zh-CN&amp;dt=md&amp;dt=rm&amp;dt=t&amp;q=</Str>
+			<Str sr="arg1" ve="3">%TransWord</Str>
+			<Str sr="arg2" ve="3"/>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Int sr="arg5" val="10"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Int sr="arg8" val="0"/>
+		</Action>
+		<Action sr="act3" ve="7">
+			<code>118</code>
+			<Str sr="arg0" ve="3">http://translate.google.cn/translate_a/single?client=gtx&amp;sl=auto&amp;tl=zh-CN&amp;dt=md&amp;dt=rm&amp;dt=t&amp;q=</Str>
+			<Str sr="arg1" ve="3">%TransWord</Str>
+			<Str sr="arg2" ve="3"/>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Int sr="arg5" val="10"/>
+			<Str sr="arg6" ve="3"/>
+			<Str sr="arg7" ve="3"/>
+			<Int sr="arg8" val="0"/>
+		</Action>
+		<Action sr="act4" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%TransBack</Str>
+			<Str sr="arg1" ve="3">%HTTPD</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5"/>
+		</Action>
+		<Action sr="act5" ve="7">
+			<code>598</code>
+			<on>false</on>
+			<Str sr="arg0" ve="3">%TransBack</Str>
+			<Str sr="arg1" ve="3">\/([\u4e00-\u9fa50-9]{1,20})\"</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Str sr="arg5" ve="3">%Trans</Str>
+			<Int sr="arg6" val="0"/>
+			<Str sr="arg7" ve="3"/>
+		</Action>
+		<Action sr="act6" ve="7">
+			<code>598</code>
+			<Str sr="arg0" ve="3">%TransBack</Str>
+			<Str sr="arg1" ve="3">\[\[\["/(.*?)","\/(.*?)"</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Str sr="arg5" ve="3">%Trans</Str>
+			<Int sr="arg6" val="0"/>
+			<Str sr="arg7" ve="3"/>
+		</Action>
+		<Action sr="act7" ve="7">
+			<code>598</code>
+			<Str sr="arg0" ve="3">%Trans1</Str>
+			<Str sr="arg1" ve="3">[\[/"]{1,10}</Str>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Str sr="arg5" ve="3"/>
+			<Int sr="arg6" val="1"/>
+			<Str sr="arg7" ve="3"/>
+		</Action>
+	</Task>
+</TaskerData>
